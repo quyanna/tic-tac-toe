@@ -73,3 +73,28 @@ h6 {
 #__next {
   isolation: isolate;
 }
+
+/* CUSTOM STYLES */
+
+:root {
+}
+
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+.game-board {
+  align-items: center;
+  width: min-content;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: auto auto auto;
+  gap: 0px;
+}
+
+.game-board > div {
+  min-width: 200px;
+  min-height: 200px;
+  border: 1px solid black;
+}
