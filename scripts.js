@@ -58,6 +58,10 @@ const GameBoard = (function (rows, cols, initFill = null) {
     return checkFull;
   };
 
+  const getDimensions = () => {
+    return { rows, cols };
+  };
+
   return {
     getBoard,
     addToBoard,
@@ -65,6 +69,7 @@ const GameBoard = (function (rows, cols, initFill = null) {
     getBoardAt,
     clearBoard,
     isFull,
+    getDimensions,
   };
 })(3, 3, 0);
 
@@ -168,6 +173,32 @@ const Game = (function (board) {
   };
 })(GameBoard);
 
+const displayController = (function (document) {
+  const displayBoard = document.querySelector(".game-board");
+
+  //Displays the content of the board to the screen.
+  const showBoard = () => {
+    const { rows, cols } = GameBoard.getDimensions();
+    for (let i = 1; i <= rows; i++) {
+      for (let n = 1; n <= cols; n++) {
+        const currentDiv = document.querySelector(
+          `div[data-row="${i}"][data-col="${n}"]`
+        );
+        if (GameBoard.getBoardAt(i, n) == "X") {
+          currentDiv.style.backgroundColor = "blue";
+          currentDiv.textContent = "X";
+        }
+        if (GameBoard.getBoardAt(i, n) == "O") {
+          currentDiv.style.backgroundColor = "red";
+          currentDiv.textContent = "O";
+        }
+      }
+    }
+  };
+
+  return { showBoard };
+})(document);
+
 Game.newGame();
 
 const Driver = () => {
@@ -219,6 +250,8 @@ const Driver = () => {
   Game.playTurn(2, 1);
   Game.playTurn(3, 1);
   Game.playTurn(1, 3);
+
+  displayController.showBoard();
 };
 
 Driver();
