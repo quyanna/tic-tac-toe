@@ -17,6 +17,7 @@ const GameBoard = (function (rows, cols, initFill = null) {
   };
 
   //NOTE: GameBoard interface is 1-indexed instead of 0-indexed, we only use 0-indexing internally.
+  // returns false also if out of bounds.
   const isEmptyAt = (row, col) => {
     if (indexValid(row, col) && board[row - 1][col - 1] === initFill) {
       console.log(board[row - 1][col - 1]);
@@ -45,7 +46,27 @@ const GameBoard = (function (rows, cols, initFill = null) {
     console.log(board);
   };
 
-  return { getBoard, addToBoard, isEmptyAt, getBoardAt, clearBoard };
+  const isFull = () => {
+    let checkFull = true;
+    board.forEach((row) => {
+      row.forEach((col) => {
+        if (col == initFill) {
+          checkFull = false;
+        }
+      });
+    });
+
+    return checkFull;
+  };
+
+  return {
+    getBoard,
+    addToBoard,
+    isEmptyAt,
+    getBoardAt,
+    clearBoard,
+    isFull,
+  };
 })(3, 3, 0);
 
 // PLAYER
@@ -82,12 +103,38 @@ const Game = (function (board) {
 
     if (board.isEmptyAt(row, col)) {
       board.addToBoard(row, col, player.marker);
+      //CHECK FOR A WIN AND IF NOT THEN NEXT PLAYER'S TURN
+      if (playerWon(row, col, player.marker)) {
+        console.log("WON");
+      }
+
+      p1Turn = !p1Turn;
     } else {
-      //Do nothing if index isn't empty for now
+      console.log("Invalid choice");
+    }
+  };
+
+  // Check if the player that just played has won.
+  const playerWon = (playedRow, playedCol, marker) => {
+    //Check rows
+    if (
+      board.getBoardAt(playedRow, 1) == marker &&
+      board.getBoardAt(playedRow, 2) == marker &&
+      board.getBoardAt(playedRow, 3) == marker
+    ) {
+      console.log("Winner - rows!");
+      return true;
     }
 
-    //CHECK FOR A WIN AND IF NOT THEN NEXT PLAYER'S TURN
-    p1Turn = !p1Turn;
+    //Check columns
+    if (
+      board.getBoardAt(1, playedCol) == marker &&
+      board.getBoardAt(2, playedCol) == marker &&
+      board.getBoardAt(3, playedCol) == marker
+    ) {
+      console.log("Winner - columns!");
+      return true;
+    }
   };
 
   return {
@@ -97,6 +144,32 @@ const Game = (function (board) {
 })(GameBoard);
 
 Game.newGame();
+
+const Driver = () => {
+  Game.newGame();
+  // Test if can win on rows
+  Game.playTurn(1, 1);
+  Game.playTurn(2, 1);
+  Game.playTurn(1, 2);
+  Game.playTurn(2, 2);
+  Game.playTurn(1, 3);
+
+  //Test if can win on columns
+  Game.newGame();
+  Game.playTurn(1, 1);
+  Game.playTurn(2, 2);
+  Game.playTurn(2, 1);
+  Game.playTurn(2, 3);
+  Game.playTurn(3, 1);
+
+  //Check if it can detect when full
+  Game.playTurn(1, 2);
+  Game.playTurn(1, 3);
+  Game.playTurn(3, 2);
+  Game.playTurn(3, 3);
+};
+
+Driver();
 
 // console.log(GameBoard.getBoard());
 // console.log(GameBoard.isEmptyAt(1, 1));
