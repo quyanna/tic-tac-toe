@@ -96,12 +96,7 @@ const Game = (function (board) {
   let p1Turn = true;
 
   const playTurn = (row, col) => {
-    let player = "";
-    if (p1Turn) {
-      player = player1;
-    } else {
-      player = player2;
-    }
+    const player = p1Turn ? player1 : player2;
 
     console.log(`${player.name}'s turn: ${player.marker} at ${row},${col}`);
 
@@ -118,6 +113,8 @@ const Game = (function (board) {
     } else {
       console.log("Invalid choice");
     }
+
+    DisplayController.showBoard();
   };
 
   // Check if the player that just played has won.
@@ -173,7 +170,7 @@ const Game = (function (board) {
   };
 })(GameBoard);
 
-const displayController = (function (document) {
+const DisplayController = (function (document) {
   const displayBoard = document.querySelector(".game-board");
 
   //Displays the content of the board to the screen.
@@ -187,14 +184,23 @@ const displayController = (function (document) {
         if (GameBoard.getBoardAt(i, n) == "X") {
           currentDiv.style.backgroundColor = "blue";
           currentDiv.textContent = "X";
-        }
-        if (GameBoard.getBoardAt(i, n) == "O") {
+        } else if (GameBoard.getBoardAt(i, n) == "O") {
           currentDiv.style.backgroundColor = "red";
           currentDiv.textContent = "O";
+        } else {
+          currentDiv.style.backgroundColor = "white";
+          currentDiv.textContent = "";
         }
       }
     }
   };
+
+  displayBoard.addEventListener("click", (e) => {
+    const squarePlayed = e.target.closest("div[data-row]");
+    const row = squarePlayed.dataset.row;
+    const col = squarePlayed.dataset.col;
+    Game.playTurn(row, col);
+  });
 
   return { showBoard };
 })(document);
@@ -251,7 +257,8 @@ const Driver = () => {
   Game.playTurn(3, 1);
   Game.playTurn(1, 3);
 
-  displayController.showBoard();
+  Game.newGame();
+  DisplayController.showBoard();
 };
 
 Driver();

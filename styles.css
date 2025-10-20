@@ -101,3 +101,7 @@ h6 {
   justify-content: center;
   align-items: center;
 }
+
+.game-board > div:hover {
+  background-color: antiquewhite !important;
+}
