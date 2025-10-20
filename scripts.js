@@ -41,9 +41,25 @@ const GameBoard = (function (rows, cols, initFill = null) {
   return { getBoard, addToBoard, isEmptyAt, getBoardAt };
 })(3, 3, 0);
 
+const createPlayer = (function () {
+  let id = 0;
+  return function (marker, name = `Player ${id + 1}`) {
+    id++;
+    return { name, marker, id };
+  };
+})();
+
 console.log(GameBoard.getBoard());
 console.log(GameBoard.isEmptyAt(1, 1));
 GameBoard.addToBoard(1, 1, "X");
 console.log(GameBoard.getBoard());
 console.log(GameBoard.isEmptyAt(1, 1));
 // console.log(GameBoard.addToBoard(9, 9));
+
+player1 = createPlayer("X", "Quyanna");
+console.log(player1);
+player2 = createPlayer("O", "William");
+console.log(player2);
+
+player3 = createPlayer("X");
+console.log(player3);
