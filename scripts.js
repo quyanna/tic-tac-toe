@@ -20,7 +20,6 @@ const GameBoard = (function (rows, cols, initFill = null) {
   // returns false also if out of bounds.
   const isEmptyAt = (row, col) => {
     if (indexValid(row, col) && board[row - 1][col - 1] === initFill) {
-      console.log(board[row - 1][col - 1]);
       return true;
     } else {
       return false;
@@ -99,13 +98,15 @@ const Game = (function (board) {
       player = player2;
     }
 
-    console.log(`${player.name}'s turn: `);
+    console.log(`${player.name}'s turn: ${player.marker} at ${row},${col}`);
 
     if (board.isEmptyAt(row, col)) {
       board.addToBoard(row, col, player.marker);
       //CHECK FOR A WIN AND IF NOT THEN NEXT PLAYER'S TURN
       if (playerWon(row, col, player.marker)) {
         console.log("WON");
+      } else if (board.isFull()) {
+        console.log("Game over - tie");
       }
 
       p1Turn = !p1Turn;
@@ -135,6 +136,30 @@ const Game = (function (board) {
       console.log("Winner - columns!");
       return true;
     }
+
+    const diagonals1 = ["11", "22", "33"];
+    const diagonals2 = ["31", "22", "13"];
+
+    let check = `${playedRow}${playedCol}`;
+    if (diagonals1.includes(check)) {
+      if (
+        board.getBoardAt(1, 1) == marker &&
+        board.getBoardAt(2, 2) == marker &&
+        board.getBoardAt(3, 3) == marker
+      ) {
+        return true;
+      }
+    } else if (diagonals2.includes(check)) {
+      if (
+        board.getBoardAt(3, 1) == marker &&
+        board.getBoardAt(2, 2) == marker &&
+        board.getBoardAt(1, 3) == marker
+      ) {
+        return true;
+      }
+    }
+
+    return false; //if no win found
   };
 
   return {
@@ -167,6 +192,33 @@ const Driver = () => {
   Game.playTurn(1, 3);
   Game.playTurn(3, 2);
   Game.playTurn(3, 3);
+
+  //Check if it can detect diagonal wins
+  Game.newGame();
+  Game.playTurn(1, 1);
+  Game.playTurn(3, 2);
+  Game.playTurn(2, 2);
+  Game.playTurn(2, 3);
+  Game.playTurn(3, 3);
+
+  Game.newGame();
+  Game.playTurn(3, 1);
+  Game.playTurn(3, 2);
+  Game.playTurn(2, 2);
+  Game.playTurn(2, 3);
+  Game.playTurn(1, 3);
+
+  //Check tie detection
+  Game.newGame();
+  Game.playTurn(3, 3);
+  Game.playTurn(1, 1);
+  Game.playTurn(3, 2);
+  Game.playTurn(1, 2);
+  Game.playTurn(2, 2);
+  Game.playTurn(2, 3);
+  Game.playTurn(2, 1);
+  Game.playTurn(3, 1);
+  Game.playTurn(1, 3);
 };
 
 Driver();
