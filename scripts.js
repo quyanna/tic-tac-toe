@@ -26,13 +26,19 @@ const GameBoard = (function (rows, cols, initFill = null) {
 
   const getBoard = () => board;
 
+  const getBoardAt = (row, col) => {
+    if (indexValid(row, col)) {
+      return board[row - 1][col - 1];
+    } else return undefined;
+  };
+
   const addToBoard = (row, col, marker) => {
     if (indexValid(row, col)) {
       board[row - 1][col - 1] = marker;
     }
   };
 
-  return { getBoard, addToBoard, isEmptyAt };
+  return { getBoard, addToBoard, isEmptyAt, getBoardAt };
 })(3, 3, 0);
 
 console.log(GameBoard.getBoard());
@@ -40,4 +46,4 @@ console.log(GameBoard.isEmptyAt(1, 1));
 GameBoard.addToBoard(1, 1, "X");
 console.log(GameBoard.getBoard());
 console.log(GameBoard.isEmptyAt(1, 1));
-console.log(GameBoard.addToBoard(9, 9));
+// console.log(GameBoard.addToBoard(9, 9));
