@@ -170,7 +170,8 @@ const Game = (function (board) {
   };
 })(GameBoard);
 
-const DisplayController = (function (document) {
+//Object that represents a controller for displaying game state to the user
+const DisplayController = (function (document, GameBoard) {
   const displayBoard = document.querySelector(".game-board");
 
   //Displays the content of the board to the screen.
@@ -203,7 +204,7 @@ const DisplayController = (function (document) {
   });
 
   return { showBoard };
-})(document);
+})(document, GameBoard);
 
 Game.newGame();
 
@@ -262,19 +263,3 @@ const Driver = () => {
 };
 
 Driver();
-
-// console.log(GameBoard.getBoard());
-// console.log(GameBoard.isEmptyAt(1, 1));
-// GameBoard.addToBoard(1, 1, "X");
-// console.log(GameBoard.getBoard());
-// console.log(GameBoard.isEmptyAt(1, 1));
-// GameBoard.clearBoard();
-// // console.log(GameBoard.addToBoard(9, 9));
-
-// player1 = createPlayer("X", "Quyanna");
-// console.log(player1);
-// player2 = createPlayer("O", "William");
-// console.log(player2);
-
-// player3 = createPlayer("X");
-// console.log(player3);
