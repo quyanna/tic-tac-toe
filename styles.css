@@ -108,3 +108,20 @@ h6 {
 .game-board > div:hover {
   background-color: antiquewhite !important;
 }
+
+/* Format the lines of the Tic-tac-toe board */
+div[data-row="1"] {
+  border-top: none;
+}
+
+div[data-row="3"] {
+  border-bottom: none;
+}
+
+div[data-col="1"] {
+  border-left: none;
+}
+
+div[data-col="3"] {
+  border-right: none;
+}
