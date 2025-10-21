@@ -77,6 +77,8 @@ h6 {
 /* CUSTOM STYLES */
 
 :root {
+  --title-font: "Patrick Hand SC", cursive;
+  --body-font: "Neucha", cursive;
 }
 
 .game-wrapper {
