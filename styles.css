@@ -96,6 +96,10 @@ h1 {
   pointer-events: none;
 }
 
+.hidden {
+  display: none;
+}
+
 .game-wrapper {
   display: flex;
   justify-content: center;
@@ -148,4 +152,12 @@ div[data-col="3"] {
 #newGame {
   max-width: 30%;
   justify-self: center;
+}
+
+input[type="color"] {
+  padding: 0;
+}
+
+.color-select {
+  padding-top: 0.7rem;
 }

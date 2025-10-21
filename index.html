@@ -35,9 +35,52 @@
       </div>
     </div>
     <div class="info">
-      <button class="btn-block btn-primary-outline" id="newGame">
-        New Game
-      </button>
+      <div class="row flex-spaces child-borders">
+        <label class="paper-btn margin" for="startGame">New Game</label>
+      </div>
+      <input class="modal-state" id="startGame" type="checkbox" />
+      <div class="modal">
+        <label class="modal-bg" for="startGame"></label>
+        <div class="modal-body">
+          <label class="btn-close" for="startGame">X</label>
+          <h4 class="modal-title">Modal Title</h4>
+          <form action="">
+            <div class="row flex-spaces">
+              <div class="col form-group">
+                <h4 class="modal-title">Player 1</h4>
+                <label for="player1-name">Name:</label>
+                <input
+                  type="text"
+                  id="player1-name"
+                  name="p1-name"
+                  maxlength="20"
+                  placeholder="Player 1"
+                />
+                <div class="color-select">
+                  <label for="p1-color">Color:</label>
+                  <input type="color" name="p1-color" id="p1-color" />
+                </div>
+              </div>
+              <div class="col form-group">
+                <h4 class="modal-title">Player 2</h4>
+                <label for="player2-name">Name:</label>
+                <input
+                  type="text"
+                  id="player2-name"
+                  name="p2-name"
+                  maxlength="20"
+                  placeholder="Player 2"
+                />
+                <div class="color-select">
+                  <label for="p2-color">Color:</label>
+                  <input type="color" name="p2-color" id="p2-color" />
+                </div>
+              </div>
+            </div>
+          </form>
+          <label for="startGame">Nice!</label>
+        </div>
+      </div>
     </div>
   </body>
 </html>
