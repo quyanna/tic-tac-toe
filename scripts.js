@@ -174,6 +174,15 @@ const Game = (function (board) {
 const DisplayController = (function (document, GameBoard) {
   const displayBoard = document.querySelector(".game-board");
 
+  //Functions to disable and enable board
+  const disableBoard = () => {
+    displayBoard.classList.add("disabled");
+  };
+
+  const enableBoard = () => {
+    displayBoard.classList.remove("disabled");
+  };
+
   //Displays the content of the board to the screen.
   const showBoard = () => {
     const { rows, cols } = GameBoard.getDimensions();
@@ -203,7 +212,7 @@ const DisplayController = (function (document, GameBoard) {
     Game.playTurn(row, col);
   });
 
-  return { showBoard };
+  return { showBoard, disableBoard, enableBoard };
 })(document, GameBoard);
 
 Game.newGame();
