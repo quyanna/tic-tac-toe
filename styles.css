@@ -81,10 +81,20 @@ h6 {
   --body-font: "Neucha", cursive;
 }
 
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  margin: 10px 0;
+  font-size: 4em;
+}
+
 .game-wrapper {
   display: flex;
   justify-content: center;
-  padding-top: 20px;
+  padding: 1rem;
 }
 .game-board {
   align-items: center;
@@ -93,11 +103,12 @@ h6 {
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: auto auto auto;
   gap: 0px;
+  padding: 0;
 }
 
 .game-board > div {
-  min-width: 200px;
-  min-height: 200px;
+  min-width: 6rem;
+  min-height: 6rem;
   border: 1px solid black;
   display: flex;
   justify-content: center;
