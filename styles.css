@@ -87,14 +87,20 @@ h6 {
 }
 
 h1 {
-  margin: 10px 0;
+  margin: 0 0;
   font-size: 4em;
+}
+
+/* Class for disabling game input when it's not valid */
+.disabled {
+  pointer-events: none;
 }
 
 .game-wrapper {
   display: flex;
   justify-content: center;
   padding: 1rem;
+  padding-top: 0;
 }
 .game-board {
   align-items: center;
@@ -137,4 +143,9 @@ div[data-col="1"] {
 
 div[data-col="3"] {
   border-right: none;
+}
+
+#newGame {
+  max-width: 30%;
+  justify-self: center;
 }
