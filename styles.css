@@ -81,6 +81,11 @@ h6 {
   --body-font: "Neucha", cursive;
 }
 
+html,
+body {
+  height: 100dvh;
+}
+
 .header {
   display: flex;
   justify-content: center;
@@ -185,4 +190,9 @@ input[type="text"] {
 
 .player-2 {
   color: red;
+}
+
+.row,
+.form-group {
+  margin-bottom: 0.4rem;
 }
