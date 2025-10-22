@@ -158,6 +158,18 @@ input[type="color"] {
   padding: 0;
 }
 
+input[type="text"] {
+  padding: 5px;
+}
+
 .color-select {
   padding-top: 0.7rem;
+}
+
+#submit-btn {
+  justify-self: center;
+}
+
+.info .form-group {
+  padding: 0.5rem;
 }
