@@ -129,7 +129,7 @@ h1 {
 }
 
 .game-board > div:hover {
-  background-color: antiquewhite !important;
+  background-color: lightgray !important;
 }
 
 /* Format the lines of the Tic-tac-toe board */

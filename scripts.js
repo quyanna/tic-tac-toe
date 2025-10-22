@@ -181,6 +181,8 @@ const DisplayController = (function (document, GameBoard, Game) {
   const displayBoard = document.querySelector(".game-board");
   const playerForm = document.querySelector("#player-form");
   const modalController = document.querySelector(".modal-state");
+  let p1Color = "blue";
+  let p2Color = "red";
 
   playerForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -190,8 +192,8 @@ const DisplayController = (function (document, GameBoard, Game) {
     const p2Name =
       formData.get("p2-name") == "" ? "Player 2" : formData.get("p2-name");
 
-    const p1Color = formData.get("p1-color");
-    const p2Color = formData.get("p2-color");
+    p1Color = formData.get("p1-color");
+    p2Color = formData.get("p2-color");
 
     const p1 = createPlayer("X", p1Name, p1Color);
     const p2 = createPlayer("O", p2Name, p2Color);
@@ -220,10 +222,10 @@ const DisplayController = (function (document, GameBoard, Game) {
           `div[data-row="${i}"][data-col="${n}"]`
         );
         if (GameBoard.getBoardAt(i, n) == "X") {
-          currentDiv.style.backgroundColor = "blue";
+          currentDiv.style.backgroundColor = p1Color;
           currentDiv.textContent = "X";
         } else if (GameBoard.getBoardAt(i, n) == "O") {
-          currentDiv.style.backgroundColor = "red";
+          currentDiv.style.backgroundColor = p2Color;
           currentDiv.textContent = "O";
         } else {
           currentDiv.style.backgroundColor = "white";
