@@ -105,6 +105,10 @@ const Game = (function (board) {
     player2 = second;
   };
 
+  const getPlayers = () => {
+    return { player1, player2 };
+  };
+
   const newGame = function () {
     board.clearBoard();
     resetGameScore();
@@ -203,6 +207,7 @@ const Game = (function (board) {
     newGame,
     playTurn,
     setPlayers,
+    getPlayers,
   };
 })(GameBoard);
 
@@ -315,21 +320,33 @@ const DisplayController = (function (document, GameBoard, Game) {
 
     Game.setPlayers(p1, p2);
 
-    playerForm.reset();
     // Hides the modal
     Game.newGame();
     modalController.checked = false;
   });
 
-  // optional event listener to reset the form whenever it is closed without input
+  //   // optional event listener to reset the form whenever it is closed without input
+  //   const resetFormDefaults = () => {
+  //     const { player1, player2 } = Game.getPlayers();
+  //     document.getElementById("player1-name").value = player1.name;
+  //     document.getElementById("p1-color").value = player1.color;
+  //     document.getElementById("player2-name").value = player2.name;
+  //     document.getElementById("p2-color").value = player2.color;
+  //   };
 
-  //   modalController.addEventListener("change", (e) => {
-  //     if (!e.target.checked) {
-  //       playerForm.reset();
-  //     }
-  //   });
+  modalController.addEventListener("change", (e) => {
+    if (!e.target.checked) {
+      resetFormDefaults();
+    }
+  });
 
-  return { showBoard, disableBoard, enableBoard, displayTurn, displayWinner };
+  return {
+    showBoard,
+    disableBoard,
+    enableBoard,
+    displayTurn,
+    displayWinner,
+  };
 })(document, GameBoard, Game);
 
 Game.newGame();
