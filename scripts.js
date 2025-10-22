@@ -1,3 +1,16 @@
+/* 
+Script for a game of Tic-tac-toe. Has three "classes", GameBoard, Game, and DisplayController, as well as a
+Player object type. 
+
+Game is heavily coupled with DisplayController, and DisplayController makes many assumptions about attribute names 
+on the front-end. 
+
+Things I would like to add if I had free time: 
+- The ability to play with either a human or a computer player. 
+- Animations when symbols are added to the board to make them look "drawn". 
+- Dynamic hover colors over the board so that it's easier to see who is playing. 
+*/
+
 // GAME BOARD
 const GameBoard = (function (rows, cols, initFill = null) {
   // Create a 2D Board with given rows and columns, initialized to "0";
