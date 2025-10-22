@@ -96,6 +96,7 @@ const Game = (function (board) {
 
   const newGame = function () {
     board.clearBoard();
+    DisplayController.showBoard();
   };
 
   let gameOver = false;
@@ -184,26 +185,6 @@ const DisplayController = (function (document, GameBoard, Game) {
   let p1Color = "blue";
   let p2Color = "red";
 
-  playerForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const formData = new FormData(playerForm);
-    const p1Name =
-      formData.get("p1-name") == "" ? "Player 1" : formData.get("p1-name");
-    const p2Name =
-      formData.get("p2-name") == "" ? "Player 2" : formData.get("p2-name");
-
-    p1Color = formData.get("p1-color");
-    p2Color = formData.get("p2-color");
-
-    const p1 = createPlayer("X", p1Name, p1Color);
-    const p2 = createPlayer("O", p2Name, p2Color);
-
-    Game.setPlayers(p1, p2);
-    playerForm.reset();
-    // Hides the modal
-    modalController.checked = false;
-  });
-
   //Functions to disable and enable board
   const disableBoard = () => {
     displayBoard.classList.add("disabled");
@@ -240,6 +221,28 @@ const DisplayController = (function (document, GameBoard, Game) {
     const row = squarePlayed.dataset.row;
     const col = squarePlayed.dataset.col;
     Game.playTurn(row, col);
+  });
+
+  playerForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(playerForm);
+    const p1Name =
+      formData.get("p1-name") == "" ? "Player 1" : formData.get("p1-name");
+    const p2Name =
+      formData.get("p2-name") == "" ? "Player 2" : formData.get("p2-name");
+
+    p1Color = formData.get("p1-color");
+    p2Color = formData.get("p2-color");
+
+    const p1 = createPlayer("X", p1Name, p1Color);
+    const p2 = createPlayer("O", p2Name, p2Color);
+
+    Game.setPlayers(p1, p2);
+
+    playerForm.reset();
+    // Hides the modal
+    Game.newGame();
+    modalController.checked = false;
   });
 
   return { showBoard, disableBoard, enableBoard };
