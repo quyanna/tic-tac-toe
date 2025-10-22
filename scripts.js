@@ -182,6 +182,10 @@ const DisplayController = (function (document, GameBoard, Game) {
   const displayBoard = document.querySelector(".game-board");
   const playerForm = document.querySelector("#player-form");
   const modalController = document.querySelector(".modal-state");
+  const colorPicker1 = document.getElementById("p1-color");
+  const colorPicker2 = document.getElementById("p2-color");
+
+  //Set default colors for players
   let p1Color = "blue";
   let p2Color = "red";
 
@@ -216,6 +220,20 @@ const DisplayController = (function (document, GameBoard, Game) {
     }
   };
 
+  colorPicker1.addEventListener("input", (e) => {
+    const p1TextItems = document.querySelectorAll(".player-1");
+    p1TextItems.forEach((p1Element) => {
+      p1Element.style.color = e.target.value;
+    });
+  });
+
+  colorPicker2.addEventListener("input", (e) => {
+    const p2TextItems = document.querySelectorAll(".player-2");
+    p2TextItems.forEach((p2Element) => {
+      p2Element.style.color = e.target.value;
+    });
+  });
+
   displayBoard.addEventListener("click", (e) => {
     const squarePlayed = e.target.closest("div[data-row]");
     const row = squarePlayed.dataset.row;
@@ -223,6 +241,7 @@ const DisplayController = (function (document, GameBoard, Game) {
     Game.playTurn(row, col);
   });
 
+  //When player info form is submitted
   playerForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(playerForm);

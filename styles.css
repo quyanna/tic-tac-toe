@@ -173,3 +173,11 @@ input[type="text"] {
 .info .form-group {
   padding: 0.5rem;
 }
+
+.player-1 {
+  color: blue;
+}
+
+.player-2 {
+  color: red;
+}
