@@ -257,11 +257,14 @@ const DisplayController = (function (document, GameBoard, Game) {
         if (GameBoard.getBoardAt(i, n) == "X") {
           currentDiv.dataset.owner = "p1";
           currentDiv.textContent = "X";
+          currentDiv.dataset.empty = "false";
         } else if (GameBoard.getBoardAt(i, n) == "O") {
           currentDiv.dataset.owner = "p2";
           currentDiv.textContent = "O";
+          currentDiv.dataset.empty = "false";
         } else {
           currentDiv.textContent = "";
+          currentDiv.dataset.empty = "true";
           delete currentDiv.dataset.owner;
         }
       }

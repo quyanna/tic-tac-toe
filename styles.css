@@ -87,11 +87,11 @@ h6 {
 
 /* Desktop/mouse only */
 @media (hover: hover) and (pointer: fine) {
-  .game-board [data-row][data-col] {
+  .game-board [data-row][data-col][data-empty="true"] {
     transition: background-color 120ms ease, outline-color 120ms ease;
   }
 
-  .game-board [data-row][data-col]:hover {
+  .game-board [data-row][data-col][data-empty="true"]:hover {
     /* light hint using current player's color */
     background-color: color-mix(in oklab, var(--hover-color) 18%, white);
     cursor: pointer;
