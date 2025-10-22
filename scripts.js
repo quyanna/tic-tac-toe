@@ -293,6 +293,7 @@ const DisplayController = (function (document, GameBoard, Game) {
 
     gameStatus.style.color = winnerColor;
     gameStatus.textContent = winnerText;
+    setCSSVar("--hover-color", "gray");
   };
 
   //          EVENT LISTENERS
