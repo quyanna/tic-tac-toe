@@ -77,17 +77,28 @@ const GameBoard = (function (rows, cols, initFill = null) {
 
 const createPlayer = (function () {
   let id = 0;
-  return function (marker, name = `Player ${id + 1}`, color = null) {
-    id++;
-    return { name, marker, id, color };
+  return function (
+    marker,
+    name = `Player ${id + 1}`,
+    color = null,
+    winner = false
+  ) {
+    return { name, marker, id, color, winner };
   };
 })();
 
 //GAME
 const Game = (function (board) {
-  let player1 = createPlayer("X", "Player 1");
-  let player2 = createPlayer("O", "Player 2");
+  let player1 = createPlayer("X", "Player 1", "blue");
+  let player2 = createPlayer("O", "Player 2", "red");
   let p1Turn = true;
+  let gameOver = false;
+
+  const resetGameScore = () => {
+    player1.winner = false;
+    player2.winner = false;
+    gameOver = false;
+  };
 
   const setPlayers = (first, second) => {
     player1 = first;
@@ -96,26 +107,44 @@ const Game = (function (board) {
 
   const newGame = function () {
     board.clearBoard();
+    resetGameScore();
     DisplayController.showBoard();
+    p1Turn = true; // p1 always starts first
+    DisplayController.displayTurn(player1);
   };
 
-  let gameOver = false;
-
+  // Gets called whenever a player makes a move by clicking the board
   const playTurn = (row, col) => {
+    if (gameOver) {
+      return;
+    }
     const player = p1Turn ? player1 : player2;
 
     console.log(`${player.name}'s turn: ${player.marker} at ${row},${col}`);
+    //Display what player's turn it is
+    DisplayController.displayTurn(player);
 
     if (board.isEmptyAt(row, col)) {
       board.addToBoard(row, col, player.marker);
       //CHECK FOR A WIN AND IF NOT THEN NEXT PLAYER'S TURN
       if (playerWon(row, col, player.marker)) {
-        console.log("WON");
+        console.log(`${player.name} WON!`);
+        gameOver = true;
+        player.winner = true;
       } else if (board.isFull()) {
         console.log("Game over - tie");
+        gameOver = true;
+      }
+
+      if (gameOver) {
+        DisplayController.displayWinner(player1, player2);
+        DisplayController.showBoard();
+        return;
       }
 
       p1Turn = !p1Turn;
+      const nextPlayer = p1Turn ? player1 : player2;
+      DisplayController.displayTurn(nextPlayer);
     } else {
       console.log("Invalid choice");
     }
@@ -184,6 +213,7 @@ const DisplayController = (function (document, GameBoard, Game) {
   const modalController = document.querySelector(".modal-state");
   const colorPicker1 = document.getElementById("p1-color");
   const colorPicker2 = document.getElementById("p2-color");
+  const gameStatus = document.querySelector(".status-text");
 
   //Set default colors for players
   let p1Color = "blue";
@@ -220,6 +250,33 @@ const DisplayController = (function (document, GameBoard, Game) {
     }
   };
 
+  const displayTurn = (player = null) => {
+    if (player == null) {
+      gameStatus.textContent = "";
+      return;
+    }
+    gameStatus.style.color = player.color;
+    gameStatus.textContent = `${player.name}'s Turn!`;
+  };
+
+  const displayWinner = (player1, player2) => {
+    let winnerText = "It's a tie!";
+    let winnerColor = "black";
+    if (player1.winner) {
+      winnerText = `${player1.name} Wins!`;
+      winnerColor = player1.color;
+    } else if (player2.winner) {
+      winnerText = `${player2.name} Wins!`;
+      winnerColor = player2.color;
+    }
+
+    gameStatus.style.color = winnerColor;
+    gameStatus.textContent = winnerText;
+  };
+
+  //          EVENT LISTENERS
+
+  //Update color of player info text to match the player's selected color
   colorPicker1.addEventListener("input", (e) => {
     const p1TextItems = document.querySelectorAll(".player-1");
     p1TextItems.forEach((p1Element) => {
@@ -264,7 +321,15 @@ const DisplayController = (function (document, GameBoard, Game) {
     modalController.checked = false;
   });
 
-  return { showBoard, disableBoard, enableBoard };
+  // optional event listener to reset the form whenever it is closed without input
+
+  //   modalController.addEventListener("change", (e) => {
+  //     if (!e.target.checked) {
+  //       playerForm.reset();
+  //     }
+  //   });
+
+  return { showBoard, disableBoard, enableBoard, displayTurn, displayWinner };
 })(document, GameBoard, Game);
 
 Game.newGame();
