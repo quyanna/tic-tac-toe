@@ -77,23 +77,28 @@ const GameBoard = (function (rows, cols, initFill = null) {
 
 const createPlayer = (function () {
   let id = 0;
-  return function (marker, name = `Player ${id + 1}`) {
+  return function (marker, name = `Player ${id + 1}`, color = null) {
     id++;
-    return { name, marker, id };
+    return { name, marker, id, color };
   };
 })();
 
 //GAME
 const Game = (function (board) {
+  let player1 = createPlayer("X", "Player 1");
+  let player2 = createPlayer("O", "Player 2");
+  let p1Turn = true;
+
+  const setPlayers = (first, second) => {
+    player1 = first;
+    player2 = second;
+  };
+
   const newGame = function () {
     board.clearBoard();
   };
 
   let gameOver = false;
-
-  const player1 = createPlayer("X", "Quyanna");
-  const player2 = createPlayer("O", "William");
-  let p1Turn = true;
 
   const playTurn = (row, col) => {
     const player = p1Turn ? player1 : player2;
@@ -167,12 +172,35 @@ const Game = (function (board) {
   return {
     newGame,
     playTurn,
+    setPlayers,
   };
 })(GameBoard);
 
 //Object that represents a controller for displaying game state to the user
-const DisplayController = (function (document, GameBoard) {
+const DisplayController = (function (document, GameBoard, Game) {
   const displayBoard = document.querySelector(".game-board");
+  const playerForm = document.querySelector("#player-form");
+  const modalController = document.querySelector(".modal-state");
+
+  playerForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(playerForm);
+    const p1Name =
+      formData.get("p1-name") == "" ? "Player 1" : formData.get("p1-name");
+    const p2Name =
+      formData.get("p2-name") == "" ? "Player 2" : formData.get("p2-name");
+
+    const p1Color = formData.get("p1-color");
+    const p2Color = formData.get("p2-color");
+
+    const p1 = createPlayer("X", p1Name, p1Color);
+    const p2 = createPlayer("O", p2Name, p2Color);
+
+    Game.setPlayers(p1, p2);
+    playerForm.reset();
+    // Hides the modal
+    modalController.checked = false;
+  });
 
   //Functions to disable and enable board
   const disableBoard = () => {
@@ -213,7 +241,7 @@ const DisplayController = (function (document, GameBoard) {
   });
 
   return { showBoard, disableBoard, enableBoard };
-})(document, GameBoard);
+})(document, GameBoard, Game);
 
 Game.newGame();
 

@@ -39,15 +39,16 @@
         <label class="paper-btn" for="startGame">New Game</label>
       </div>
       <input class="modal-state" id="startGame" type="checkbox" />
+
       <div class="modal">
         <label class="modal-bg" for="startGame"></label>
         <div class="modal-body">
           <label class="btn-close" for="startGame">X</label>
           <h4 class="modal-title">Enter your names:</h4>
-          <form action="">
+          <form action="" id="player-form" method="dialog">
             <div class="row flex-spaces">
               <div class="col form-group">
-                <h4 class="modal-title">Player 1</h4>
+                <h4 class="modal-title player-1">Player 1 (X)</h4>
                 <label for="player1-name">Name:</label>
                 <input
                   type="text"
@@ -67,7 +68,7 @@
                 </div>
               </div>
               <div class="col form-group">
-                <h4 class="modal-title">Player 2</h4>
+                <h4 class="modal-title player-2">Player 2 (O)</h4>
                 <label for="player2-name">Name:</label>
                 <input
                   type="text"
