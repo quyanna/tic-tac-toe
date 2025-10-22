@@ -1,5 +1,3 @@
-console.log("Hello, world!");
-
 // GAME BOARD
 const GameBoard = (function (rows, cols, initFill = null) {
   // Create a 2D Board with given rows and columns, initialized to "0";
@@ -11,7 +9,7 @@ const GameBoard = (function (rows, cols, initFill = null) {
   // Valid indexes must be from 1-rows or 1-cols. PRIVATE
   const indexValid = (row, col) => {
     if (row > rows || col > cols || row <= 0 || col <= 0) {
-      console.log(Error("GameBoard index out of bounds")); //TODO: Change error messaging later maybe
+      console.log(Error("GameBoard index out of bounds"));
       return false;
     } else return true;
   };
@@ -42,7 +40,6 @@ const GameBoard = (function (rows, cols, initFill = null) {
 
   const clearBoard = () => {
     board.forEach((row) => row.fill(initFill));
-    console.log(board);
   };
 
   const isFull = () => {
@@ -124,7 +121,6 @@ const Game = (function (board) {
     }
     const player = p1Turn ? player1 : player2;
 
-    console.log(`${player.name}'s turn: ${player.marker} at ${row},${col}`);
     //Display what player's turn it is
     DisplayController.displayTurn(player);
 
@@ -132,11 +128,9 @@ const Game = (function (board) {
       board.addToBoard(row, col, player.marker);
       //CHECK FOR A WIN AND IF NOT THEN NEXT PLAYER'S TURN
       if (playerWon(row, col, player.marker)) {
-        console.log(`${player.name} WON!`);
         gameOver = true;
         player.winner = true;
       } else if (board.isFull()) {
-        console.log("Game over - tie");
         gameOver = true;
       }
 
@@ -150,7 +144,7 @@ const Game = (function (board) {
       const nextPlayer = p1Turn ? player1 : player2;
       DisplayController.displayTurn(nextPlayer);
     } else {
-      console.log("Invalid choice");
+      //do nothing
     }
 
     DisplayController.showBoard();
@@ -164,7 +158,6 @@ const Game = (function (board) {
       board.getBoardAt(playedRow, 2) == marker &&
       board.getBoardAt(playedRow, 3) == marker
     ) {
-      console.log("Winner - rows!");
       return true;
     }
 
@@ -174,7 +167,6 @@ const Game = (function (board) {
       board.getBoardAt(2, playedCol) == marker &&
       board.getBoardAt(3, playedCol) == marker
     ) {
-      console.log("Winner - columns!");
       return true;
     }
 
