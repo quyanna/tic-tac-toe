@@ -334,11 +334,11 @@ const DisplayController = (function (document, GameBoard, Game) {
   //     document.getElementById("p2-color").value = player2.color;
   //   };
 
-  modalController.addEventListener("change", (e) => {
-    if (!e.target.checked) {
-      resetFormDefaults();
-    }
-  });
+  //   modalController.addEventListener("change", (e) => {
+  //     if (!e.target.checked) {
+  //       resetFormDefaults();
+  //     }
+  //   });
 
   return {
     showBoard,
@@ -351,58 +351,59 @@ const DisplayController = (function (document, GameBoard, Game) {
 
 Game.newGame();
 
-const Driver = () => {
-  Game.newGame();
-  // Test if can win on rows
-  Game.playTurn(1, 1);
-  Game.playTurn(2, 1);
-  Game.playTurn(1, 2);
-  Game.playTurn(2, 2);
-  Game.playTurn(1, 3);
+//TEST DRIVER
+// const Driver = () => {
+//   Game.newGame();
+//   // Test if can win on rows
+//   Game.playTurn(1, 1);
+//   Game.playTurn(2, 1);
+//   Game.playTurn(1, 2);
+//   Game.playTurn(2, 2);
+//   Game.playTurn(1, 3);
 
-  //Test if can win on columns
-  Game.newGame();
-  Game.playTurn(1, 1);
-  Game.playTurn(2, 2);
-  Game.playTurn(2, 1);
-  Game.playTurn(2, 3);
-  Game.playTurn(3, 1);
+//   //Test if can win on columns
+//   Game.newGame();
+//   Game.playTurn(1, 1);
+//   Game.playTurn(2, 2);
+//   Game.playTurn(2, 1);
+//   Game.playTurn(2, 3);
+//   Game.playTurn(3, 1);
 
-  //Check if it can detect when full
-  Game.playTurn(1, 2);
-  Game.playTurn(1, 3);
-  Game.playTurn(3, 2);
-  Game.playTurn(3, 3);
+//   //Check if it can detect when full
+//   Game.playTurn(1, 2);
+//   Game.playTurn(1, 3);
+//   Game.playTurn(3, 2);
+//   Game.playTurn(3, 3);
 
-  //Check if it can detect diagonal wins
-  Game.newGame();
-  Game.playTurn(1, 1);
-  Game.playTurn(3, 2);
-  Game.playTurn(2, 2);
-  Game.playTurn(2, 3);
-  Game.playTurn(3, 3);
+//   //Check if it can detect diagonal wins
+//   Game.newGame();
+//   Game.playTurn(1, 1);
+//   Game.playTurn(3, 2);
+//   Game.playTurn(2, 2);
+//   Game.playTurn(2, 3);
+//   Game.playTurn(3, 3);
 
-  Game.newGame();
-  Game.playTurn(3, 1);
-  Game.playTurn(3, 2);
-  Game.playTurn(2, 2);
-  Game.playTurn(2, 3);
-  Game.playTurn(1, 3);
+//   Game.newGame();
+//   Game.playTurn(3, 1);
+//   Game.playTurn(3, 2);
+//   Game.playTurn(2, 2);
+//   Game.playTurn(2, 3);
+//   Game.playTurn(1, 3);
 
-  //Check tie detection
-  Game.newGame();
-  Game.playTurn(3, 3);
-  Game.playTurn(1, 1);
-  Game.playTurn(3, 2);
-  Game.playTurn(1, 2);
-  Game.playTurn(2, 2);
-  Game.playTurn(2, 3);
-  Game.playTurn(2, 1);
-  Game.playTurn(3, 1);
-  Game.playTurn(1, 3);
+//   //Check tie detection
+//   Game.newGame();
+//   Game.playTurn(3, 3);
+//   Game.playTurn(1, 1);
+//   Game.playTurn(3, 2);
+//   Game.playTurn(1, 2);
+//   Game.playTurn(2, 2);
+//   Game.playTurn(2, 3);
+//   Game.playTurn(2, 1);
+//   Game.playTurn(3, 1);
+//   Game.playTurn(1, 3);
 
-  Game.newGame();
-  DisplayController.showBoard();
-};
+//   Game.newGame();
+//   DisplayController.showBoard();
+// };
 
-Driver();
+// Driver();
