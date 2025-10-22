@@ -229,6 +229,14 @@ const DisplayController = (function (document, GameBoard, Game) {
   let p1Color = "blue";
   let p2Color = "red";
 
+  setCSSVar("--p1-color", p1Color);
+  setCSSVar("--p2-color", p2Color);
+
+  //Helper function to set CSS variables
+  function setCSSVar(name, value) {
+    document.documentElement.style.setProperty(name, value);
+  }
+
   //Functions to disable and enable board
   const disableBoard = () => {
     displayBoard.classList.add("disabled");
@@ -247,14 +255,14 @@ const DisplayController = (function (document, GameBoard, Game) {
           `div[data-row="${i}"][data-col="${n}"]`
         );
         if (GameBoard.getBoardAt(i, n) == "X") {
-          currentDiv.style.backgroundColor = p1Color;
+          currentDiv.dataset.owner = "p1";
           currentDiv.textContent = "X";
         } else if (GameBoard.getBoardAt(i, n) == "O") {
-          currentDiv.style.backgroundColor = p2Color;
+          currentDiv.dataset.owner = "p2";
           currentDiv.textContent = "O";
         } else {
-          currentDiv.style.backgroundColor = "white";
           currentDiv.textContent = "";
+          delete currentDiv.dataset.owner;
         }
       }
     }
@@ -267,6 +275,9 @@ const DisplayController = (function (document, GameBoard, Game) {
     }
     gameStatus.style.color = player.color;
     gameStatus.textContent = `${player.name}'s Turn!`;
+
+    // currentPlayerMarker = player.marker; // "X" or "O"
+    setCSSVar("--hover-color", player.color); // drives the desktop-only hover color
   };
 
   const displayWinner = (player1, player2) => {
@@ -319,6 +330,9 @@ const DisplayController = (function (document, GameBoard, Game) {
 
     p1Color = formData.get("p1-color");
     p2Color = formData.get("p2-color");
+
+    setCSSVar("--p1-color", p1Color);
+    setCSSVar("--p2-color", p2Color);
 
     const p1 = createPlayer("X", p1Name, p1Color);
     const p2 = createPlayer("O", p2Name, p2Color);

@@ -79,6 +79,30 @@ h6 {
 :root {
   --title-font: "Patrick Hand SC", cursive;
   --body-font: "Neucha", cursive;
+  --hover-color: gray;
+
+  --p1-color: "blue";
+  --p2-color: "red";
+}
+
+/* Desktop/mouse only */
+@media (hover: hover) and (pointer: fine) {
+  .game-board [data-row][data-col] {
+    transition: background-color 120ms ease, outline-color 120ms ease;
+  }
+
+  .game-board [data-row][data-col]:hover {
+    /* light hint using current player's color */
+    background-color: color-mix(in oklab, var(--hover-color) 18%, white);
+    cursor: pointer;
+  }
+}
+
+/* Optional: tactile tap feedback on touch devices */
+@media (hover: none) {
+  .game-board [data-row][data-col]:active {
+    transform: scale(0.98);
+  }
 }
 
 html,
@@ -126,6 +150,13 @@ h1 {
   padding: 0;
 }
 
+.game-board [data-owner="p1"] {
+  background-color: var(--p1-color);
+}
+.game-board [data-owner="p2"] {
+  background-color: var(--p2-color);
+}
+
 .game-board > div {
   min-width: 6rem;
   min-height: 6rem;
@@ -138,9 +169,9 @@ h1 {
   color: aliceblue;
 }
 
-.game-board > div:hover {
+/* .game-board > div:hover {
   background-color: lightgray !important;
-}
+} */
 
 /* Format the lines of the Tic-tac-toe board */
 div[data-row="1"] {
