@@ -218,12 +218,16 @@ const Game = (function (board) {
 
 //Object that represents a controller for displaying game state to the user
 const DisplayController = (function (document, GameBoard, Game) {
-  const displayBoard = document.querySelector(".game-board");
-  const playerForm = document.querySelector("#player-form");
   const modalController = document.querySelector(".modal-state");
+  const displayBoard = document.querySelector(".game-board");
+  const gameStatus = document.querySelector(".status-text");
+
+  // Player form controllers
+  const playerForm = document.querySelector("#player-form");
   const colorPicker1 = document.getElementById("p1-color");
   const colorPicker2 = document.getElementById("p2-color");
-  const gameStatus = document.querySelector(".status-text");
+  const p1CPUSwitch = document.getElementById("p1-cpu");
+  const p2CPUSwitch = document.getElementById("p2-cpu");
 
   //Set default colors for players
   let p1Color = "blue";
@@ -321,6 +325,18 @@ const DisplayController = (function (document, GameBoard, Game) {
     const row = squarePlayed.dataset.row;
     const col = squarePlayed.dataset.col;
     Game.playTurn(row, col);
+  });
+
+  p1CPUSwitch.addEventListener("change", (e) => {
+    if (e.target.checked) {
+      p2CPUSwitch.checked = false;
+    }
+  });
+
+  p2CPUSwitch.addEventListener("change", (e) => {
+    if (e.target.checked) {
+      p1CPUSwitch.checked = false;
+    }
   });
 
   //When player info form is submitted
