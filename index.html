@@ -49,7 +49,7 @@
           <label class="btn-close" for="startGame">X</label>
           <h4 class="modal-title">Enter your names:</h4>
           <form action="" id="player-form" method="dialog">
-            <div class="row flex-spaces">
+            <div class="row">
               <div class="col form-group">
                 <h4 class="modal-title player-1">Player 1 (X)</h4>
                 <label for="player1-name">Name:</label>
@@ -60,14 +60,25 @@
                   maxlength="20"
                   placeholder="Player 1"
                 />
-                <div class="color-select">
-                  <label for="p1-color">Color:</label>
-                  <input
-                    type="color"
-                    name="p1-color"
-                    id="p1-color"
-                    value="#0000FF"
-                  />
+                <div class="row flex-middle">
+                  <div class="color-select col">
+                    <label for="p1-color">Color:</label>
+                    <input
+                      type="color"
+                      name="p1-color"
+                      id="p1-color"
+                      value="#0000FF"
+                    />
+                  </div>
+                  <div class="cpu-switch col">
+                    <label for="p1-cpu" class="paper-switch-2-label">
+                      CPU:
+                    </label>
+                    <label class="paper-switch-2">
+                      <input id="p1-cpu" name="p1-cpu" type="checkbox" />
+                      <span class="paper-switch-slider"></span>
+                    </label>
+                  </div>
                 </div>
               </div>
               <div class="col form-group">
@@ -80,14 +91,25 @@
                   maxlength="20"
                   placeholder="Player 2"
                 />
-                <div class="color-select">
-                  <label for="p2-color">Color:</label>
-                  <input
-                    type="color"
-                    name="p2-color"
-                    id="p2-color"
-                    value="#FF0000"
-                  />
+                <div class="row flex-middle">
+                  <div class="color-select col">
+                    <label for="p2-color">Color:</label>
+                    <input
+                      type="color"
+                      name="p2-color"
+                      id="p2-color"
+                      value="#FF0000"
+                    />
+                  </div>
+                  <div class="cpu-switch col">
+                    <label for="p2-cpu" class="paper-switch-2-label">
+                      CPU:
+                    </label>
+                    <label class="paper-switch-2">
+                      <input id="p2-cpu" name="p2-cpu" type="checkbox" />
+                      <span class="paper-switch-slider"></span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
