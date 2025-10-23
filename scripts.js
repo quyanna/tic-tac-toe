@@ -91,9 +91,10 @@ const createPlayer = (function () {
     marker,
     name = `Player ${id + 1}`,
     color = null,
-    winner = false
+    winner = false,
+    isCPU = false
   ) {
-    return { name, marker, id, color, winner };
+    return { name, marker, id, color, winner, isCPU };
   };
 })();
 
@@ -356,6 +357,13 @@ const DisplayController = (function (document, GameBoard, Game) {
 
     const p1 = createPlayer("X", p1Name, p1Color);
     const p2 = createPlayer("O", p2Name, p2Color);
+
+    if (p1CPUSwitch.checked) {
+      p1.isCPU = true;
+    }
+    if (p2CPUSwitch.checked) {
+      p2.isCPU = true;
+    }
 
     Game.setPlayers(p1, p2);
 
